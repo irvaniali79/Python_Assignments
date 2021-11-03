@@ -9,8 +9,8 @@ while 5 not in scoures:
     print('1.scoure',scoures[0],'\n2.scoure',scoures[1],'\n3.scoure',scoures[2],'\n')
 
     player1=int(input('1 : ro , 2 : posht '))
-    player2=random.choice([1,2])
-    player3=random.choice([1,2])
+    player2=random.x([1,2])
+    player3=random.x([1,2])
 
     print(player1,player2,player3)
 

@@ -39,13 +39,13 @@ def pvp():
     reset() 
     while True:
 
-        choice('X',"one")
+        x('X',"one")
         show()
         if(gamechecker()==1):
             return "player 1 win"
         elif gamechecker()==-1:
             return "draw"
-        choice('O',"two")
+        x('O',"two")
         show()
         if(gamechecker()==1):
             return "player 2 win"
@@ -56,20 +56,20 @@ def pve():
     reset() 
     while True:
 
-        choice('X',"one")
+        x('X',"one")
         show()
         if(gamechecker()==1):
             return "player 1 win"
         elif gamechecker()==-1:
             return "draw"
-        choice('O',"computer")
+        x('O',"computer")
         show()
         if(gamechecker()==1):
             return "computer win"
         elif gamechecker()==-1:
             return "draw"
 
-def choice(char,user):
+def x(char,user):
     row,col=entry(user)
     game[row][col]=char
 

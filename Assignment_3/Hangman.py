@@ -1,8 +1,8 @@
-from random import choice
+from random import x
 
 words=["glace","piano","dart","laravel","unreal","apple","car"]
 
-correctanswer=choice(words)
+correctanswer=x(words)
 health=7
 
 

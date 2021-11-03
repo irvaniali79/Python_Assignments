@@ -17,7 +17,7 @@ while player_scoure_1<5 and player_scoure_2<5:
     print('1.paper\n2.scissors\n3.rock\n')
 
     player1=int(input("select your oprator:[enter oprator number]: "))
-    player2=random.choice([1,2,3])
+    player2=random.x([1,2,3])
 
     print("player1:",value_map[player1])
     print("player2:",value_map[player2])
