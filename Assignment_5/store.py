@@ -1,65 +1,27 @@
-import os
-import json
-
-class Connection:
-
-    def __init__(self,address):
-        self.address=address
-        file=open(self.address,'w')
-        file.close()
-
-    def connect(self,query,mode='a'):
-        with open(self.address,mode) as file:
-            return query(file)
-
-class Query:
-
-    connection=None
-    def __init__(self,connection):
-        self.connection=connection
-
-    def __query(self,method):
-        return self.connection.connect(self,method,'r')
-    
-    def __execute(self,method):
-        self.connection.connect(self,method)
-
-    def tofileformat(dictionary):
-        record=""
-        for key in dictionary.keys():
-            record+=dictionary[key]+","
-        return record[:-1]+"\n"
-   
-    def todictionary(line):
-        return json.loads(line)
-
-    def searchonarray(self,arr,key,value):
-        for item in arr:
-            if(self.todictionary(item)[key]==value):
-                return item
-
-    def insert(self,dictionary):
-        self.__execute(lambda file: file.write(self.tofileformat(dictionary)));
-
-    def delete(self,id):
-        records=self.select().split('\n')
-        records.remove( self.searchonarray(records,'id',id))
-        os.remove(self.connection.address)
-        self.__execute(lambda file: file.write(records))
-        
-    def update(self,id,dictionary):
-        self.delete(id);
-        self.insert(dictionary)
-
-    def select(self,value,key=None):
-        if key==None:
-            return self.__query((lambda file:file.read()));
-        records=self.select(value,None).split('\n')
-        return self.searchonarray(records,value,key)
+from Alidb import *
+from validator import *
 
 query=Query(Connection('datastore.csv'))
 
+
+def setproduct():
+    product={}
+
+    product['name']=input('name: ')
+    product['price']=Cinput.getpostive("enter price: ")
+    product['entity']=Cinput.getpostive("enter entity: ")
+
+    return product
+
+def show(arr):
+    for item in arr:
+        print(item)
+    return arr
+
+cart=[]
+total_cost=0
 while True:
+
     print(" Welcome to my store: ")
     print(" 1.add ")
     print(" 2.edit ")
@@ -70,19 +32,32 @@ while True:
     print(" 7.exit ")
 
     x = int (input("please choose from menu : \n"))
-    load_data_from_datastore()
     if x == 1:
-        pass
+        query.insert(setproduct())
     elif x == 2:
-        pass
+        show(query.todictionary(query.select()))
+        query.update(Cinput.getpostive("please choose id from list : \n"),setproduct())
     elif x == 3:
-        pass
+        query.delete(Cinput.getpostive("please choose id from list : \n"))
     elif x == 4:
-        pass
+        show(query.todictionary(query.select()))
     elif x == 5:
-        pass
+        arr=['search by:','1.id','2.price','3.entity','4.name']
+        show(arr)
+        x=Cinput.getconstrainedint(0,5,"please choose number from list : \n")
+        value= Cinput.getpostive('enter your numeric value: ') if 0<x<4 else Cinput.getstr('enter name : ') 
+            
+        show(query.todictionary(query.select(value,arr[x][2:])))
+
     elif x == 6:
-        pass
+        products=show(query.todictionary(query.select()))
+        x=Cinput.getconstrainedint(0,len(products)+1,"please choose id from list : \n")
+        product=dict(products[x])
+        product['entity']=Cinput.getconstrainedint(0,products['entity']+1,"enter your number that you have from this product: ")
+        cart.append(products[x])
+        show(cart)
+        total_cost+=product['entity']*product['price']
+        print('total price',total_cost)
     elif x == 7:
         exit(0)
 
