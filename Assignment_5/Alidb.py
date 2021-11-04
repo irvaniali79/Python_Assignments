@@ -1,6 +1,6 @@
 import os
 import json
-
+import csv
 class Connection:
 
     def __init__(self,address):
@@ -10,20 +10,22 @@ class Connection:
 
     def connect(self,query,mode="a"):
         with open(self.address,mode) as file:
+            print(file.read())
             return query(file)
 
 class Query:
 
     connection=None
     id=0
-    def __init__(self,connection):
+    def __init__(self,connection,columns):
         self.connection=connection
+        self.id=self.todictionary(self.select().split('\n')[-1],columns)['id']
 
     def __query(self,method):
-        return self.connection.connect(self,method,'r')
+        return self.connection.connect(method,'r')
     
     def __execute(self,method):
-        self.connection.connect(self,method)
+        self.connection.connect(method)
 
     def tofileformat(dictionary):
         record=""
@@ -31,8 +33,10 @@ class Query:
             record+=dictionary[key]+","
         return record[:-1]+"\n"
    
-    def todictionary(line):
-        return json.loads(line)
+    def todictionary(self,line,columns):
+        values=line.split(',')
+        dic={columns[i]: values[i] for i in range(len(columns))}
+        return dic
 
     def searchonarray(self,arr,key,value):
         for item in arr:
@@ -54,8 +58,8 @@ class Query:
         self.delete(id);
         self.insert(dictionary)
 
-    def select(self,value,key=None):
+    def select(self,value=None,key=None):
         if key==None:
             return self.__query((lambda file:file.read()));
         records=self.select(value,None).split('\n')
-        return self.searchonarray(records,value,key)
+        return self.searchonarray(records,key,value)

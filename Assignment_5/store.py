@@ -1,9 +1,6 @@
 from Alidb import *
 from validator import *
 
-query=Query(Connection('datastore.csv'))
-
-
 def setproduct():
     product={}
 
@@ -18,8 +15,13 @@ def show(arr):
         print(item)
     return arr
 
+
+query=Query(Connection('datastore.csv'),['id','price','entity','name'])
 cart=[]
 total_cost=0
+
+#class store
+
 while True:
 
     print(" Welcome to my store: ")
