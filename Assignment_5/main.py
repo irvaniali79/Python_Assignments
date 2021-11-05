@@ -1,10 +1,10 @@
-import Store
+from Store import Store
 columns=['id','name','price','entity']
 
 app = Store(columns,'datastore.csv')
 
 
-def main():
+def main(app):
     while True:
 
         print(" Welcome to my store: ")
@@ -34,4 +34,4 @@ def main():
 
 
 if __name__=='__main__':
-    main()
+    main(app)
