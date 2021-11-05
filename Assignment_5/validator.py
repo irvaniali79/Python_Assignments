@@ -11,7 +11,7 @@ class Cinput:
             x=int(input(str))
         return x
 
-    def getstr():
+    def getstr(str):
         try:
             x=input(str)
         except:

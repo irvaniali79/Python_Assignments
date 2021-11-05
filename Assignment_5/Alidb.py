@@ -1,16 +1,14 @@
 import os
-import json
-import csv
+
 class Connection:
 
     def __init__(self,address):
         self.address=address
-        file=open(self.address,"w")
+        file=open(self.address,"a")
         file.close()
 
     def connect(self,query,mode="a"):
         with open(self.address,mode) as file:
-            print(file.read())
             return query(file)
 
 class Query:
@@ -19,40 +17,62 @@ class Query:
     id=0
     def __init__(self,connection,columns):
         self.connection=connection
-        self.id=self.todictionary(self.select().split('\n')[-1],columns)['id']
-
+        self.columns=columns
+        arr=self.todictionary(self.select(),columns)
+        self.numoflines=len(arr) if arr[-1]!='' else 0
+        self.id=int(arr[-1]['id'] if isinstance(arr,list) and len(arr)>1 else (arr['id']) if isinstance(arr,dict) else 0)
+        
     def __query(self,method):
         return self.connection.connect(method,'r')
     
     def __execute(self,method):
         self.connection.connect(method)
 
-    def tofileformat(dictionary):
+    def tofileformat(self,dictionaries,columns=None):
+        columns=self.columns if columns==None else columns
+        if not isinstance(dictionaries,list):dictionaries=[dictionaries]
         record=""
-        for key in dictionary.keys():
-            record+=dictionary[key]+","
-        return record[:-1]+"\n"
+
+
+        for dictionary in dictionaries:            
+            for key in columns:
+                record+=str(dictionary[key])+","
+            record=record[:-1]+"\n"
+
+        return record[:-1]
    
-    def todictionary(self,line,columns):
-        values=line.split(',')
-        dic={columns[i]: values[i] for i in range(len(columns))}
-        return dic
+    def todictionary(self,line,columns=None):
+        columns=self.columns if columns==None else columns
+        arr=line.split('\n')
+        if arr[0]=='' :return arr
+        data=[]
+        for item in arr:
+            values=item.split(',')
+            data.append({columns[i]: values[i] for i in range(len(columns))})
+
+        return data if len(arr)>1 else data[0]
 
     def searchonarray(self,arr,key,value):
         for item in arr:
-            if(self.todictionary(item)[key]==value):
+            if(self.todictionary(item)[key]==str(value)):
                 return item
 
     def insert(self,dictionary):
         self.id+=1
         dictionary['id']=self.id
-        self.__execute(lambda file: file.write(self.tofileformat(dictionary)));
+        self.numoflines+=1
+        line="\n" if self.numoflines!=1 else ""
+        self.__execute(lambda file: file.write(line+self.tofileformat(dictionary)));
 
     def delete(self,id):
-        records=self.select().split('\n')
+        records=self.select().split("\n")
         records.remove( self.searchonarray(records,'id',id))
+        self.numoflines-=1
         os.remove(self.connection.address)
-        self.__execute(lambda file: file.write(records))
+        if(records==[]):
+            self.__execute(lambda file: file.write(""))
+        else :
+            self.__execute(lambda file: file.write(self.tofileformat(self.todictionary("\n".join(record for record in records)))))
         
     def update(self,id,dictionary):
         self.delete(id);
