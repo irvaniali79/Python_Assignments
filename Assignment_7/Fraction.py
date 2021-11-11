@@ -49,8 +49,3 @@ class Fraction:
             return fraction
 
 
-num=Fraction(3,3)
-
-num2=Fraction(4,6)
-
-print(num+num2)
