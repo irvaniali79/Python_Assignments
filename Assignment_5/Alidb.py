@@ -20,8 +20,6 @@ class Query:
         self.columns=columns
         arr=self.todictionary(self.select(),columns)
         self.numoflines=len(arr) if isinstance(arr,list) and  arr[0]!='' else 1 if isinstance(arr,dict) else 0
-        print(arr)
-        print(self.numoflines)
         self.id=int(arr[-1]['id'] if isinstance(arr,list) and len(arr)>1 else (arr['id']) if isinstance(arr,dict) else 0)
         
     def __query(self,method):
