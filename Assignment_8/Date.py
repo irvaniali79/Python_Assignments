@@ -1,5 +1,6 @@
 
 import time
+import datetime
 
 class Date:
 
@@ -13,7 +14,9 @@ class Date:
        return Date(abs(date.getTimeStamp()-self._timestamp))
 
     def toDate(self):
-        return
+        timestamp = datetime.datetime.fromtimestamp(self._timestamp)
+        return timestamp.strftime('%m/%d/%Y %H:%M:%S %Z')
 
     def getTimeStamp(self):
         return self._timestamp
+
