@@ -2,8 +2,7 @@ import random
 import arcade
 from objects.Spirtes import *
 from objects.Snake import Snake
-SCREEN_WIDTH = 1000
-SCREEN_HEIGHT = 1000    
+   
 
 class Env(arcade.Window):
     def __init__(self):

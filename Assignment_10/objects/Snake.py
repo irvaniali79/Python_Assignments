@@ -1,10 +1,6 @@
 import arcade
 from objects.Spirtes import *
 
-SCREEN_WIDTH = 1000
-SCREEN_HEIGHT = 1000
-
-
 class Snake(arcade.Sprite):
     def __init__(self):
         super().__init__()
