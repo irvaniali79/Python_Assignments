@@ -1,9 +1,5 @@
 import random
 import arcade
-import arcade.gui
-from arcade.key import RIGHT
-from arcade.window_commands import start_render
-from pyglet.libs.x11.xlib import Screen, SelectionNotify
 from objects.Spirtes import *
 from objects.Snake import Snake
 SCREEN_WIDTH = 1000
@@ -12,7 +8,8 @@ SCREEN_HEIGHT = 1000
 class Env(arcade.Window):
     def __init__(self):
         super().__init__(width=SCREEN_WIDTH , height=SCREEN_HEIGHT  , title="Snake Game")
-        arcade.set_background_color(arcade.color.SAND)
+        arcade.set_background_color(arcade.color.BLACK_LEATHER_JACKET)
+        
         self.snake = Snake()
         self.apple = Apple()
         self.pear = Pear()
@@ -20,9 +17,9 @@ class Env(arcade.Window):
         
 
     def on_draw(self):
-        arcade,start_render()
+        arcade.start_render()
         if(self.snake.score<0):
-            arcade.draw_text('game over :) lol',500,500,arcade.color.BLACK_BEAN)
+            arcade.draw_text('game over :) lol',500,500,arcade.color.WHITE)
         else:
             arcade.draw_text('Score : '+str(self.snake.score),start_x=20 , start_y=40 , font_size=30) 
             self.snake.draw()

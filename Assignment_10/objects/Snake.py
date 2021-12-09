@@ -1,8 +1,4 @@
 import arcade
-import arcade.gui
-from arcade.key import RIGHT
-from arcade.window_commands import start_render
-from pyglet.libs.x11.xlib import Screen
 from objects.Spirtes import *
 
 SCREEN_WIDTH = 1000
