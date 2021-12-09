@@ -48,23 +48,19 @@ class Env(arcade.Window):
             self.check_pos()
             
     def check_pos(self):
-        center_x=random.randrange(0, SCREEN_HEIGHT , 50)
-        center_y=random.randrange(0, SCREEN_WIDTH , 50)
         
         if arcade.check_for_collision(self.snake,self.apple.apple):
             self.snake.eat('apple')
-            self.apple.apple.center_x = center_x
-            self.apple.apple.center_y = center_y
+            self.apple= Apple()
         
         elif arcade.check_for_collision(self.snake,self.pear.pear):
             self.snake.eat('pear')
-            self.pear.pear.center_x = center_x
-            self.pear.pear.center_y = center_y
+            self.pear = Pear()
             
         elif arcade.check_for_collision(self.snake,self.hitch.hitch):
             self.snake.eat('shit')
-            self.hitch.hitch.center_x = center_x
-            self.hitch.hitch.center_y = center_y                   
+            self.hitch = Hitch()
+            
 
 
 
