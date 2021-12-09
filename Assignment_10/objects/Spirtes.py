@@ -17,7 +17,7 @@ class Pear(arcade.Sprite):
      def __init__(self):
         super().__init__()
         self.image = 'assets/pear.png'
-        self.pear = arcade.Sprite(self.image, 0.08)
+        self.pear = arcade.Sprite(self.image, 0.04)
         self.pear.center_x  = random.randrange(60, SCREEN_HEIGHT , 20) 
         self.pear.center_y  = random.randrange(60, SCREEN_WIDTH , 20) 
 
