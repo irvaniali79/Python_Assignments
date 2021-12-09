@@ -1,4 +1,3 @@
-import random
 import arcade
 from objects.Spirtes import *
 from objects.Snake import Snake
@@ -14,7 +13,6 @@ class Env(arcade.Window):
         self.pear = Pear()
         self.hitch = Hitch()
         
-
     def on_draw(self):
         arcade.start_render()
         if(self.snake.score<0):
@@ -29,27 +27,42 @@ class Env(arcade.Window):
     def on_key_release(self, symbol: int, modifiers: int):
         if  symbol == arcade.key.LEFT:
             self.snake.move()
-            self.snake.body[-1][0]-=20
+            self.snake.body[0][0]-=20
+            self.snake.center_x +=  -20
+    
             self.check_pos()
             
         elif symbol == arcade.key.RIGHT:
             self.snake.move();
-            self.snake.body[-1][0]+=20
+            self.snake.body[0][0]+=20
+            self.snake.center_x +=  20
+            
             self.check_pos()
 
         elif symbol == arcade.key.UP:
-            self.snake.body[-1][1]+=20
+            self.snake.body[0][1]+=20
             self.snake.move();
+            self.snake.center_y +=  20
+
             self.check_pos()
 
         elif symbol == arcade.key.DOWN:
-            self.snake.body[-1][1]-=20
+            self.snake.body[0][1]-=20
             self.snake.move();
+            self.snake.center_y +=  -20
+
             self.check_pos()
             
     def check_pos(self):
         
-        if arcade.check_for_collision(self.snake,self.apple.apple):
+        if self.snake.score < 0 \
+            or self.snake.center_x<0 \
+            or self.snake.center_x>SCREEN_WIDTH  \
+            or self.snake.center_y<0 \
+            or self.snake.center_y>SCREEN_HEIGHT:
+            self.snake.score=-1
+
+        elif arcade.check_for_collision(self.snake,self.apple.apple):
             self.snake.eat('apple')
             self.apple= Apple()
         
@@ -60,11 +73,6 @@ class Env(arcade.Window):
         elif arcade.check_for_collision(self.snake,self.hitch.hitch):
             self.snake.eat('shit')
             self.hitch = Hitch()
-            
-
-
-
-
 
 my_game = Env()
 arcade.run()
