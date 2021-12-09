@@ -28,7 +28,7 @@ class Env(arcade.Window):
         if  symbol == arcade.key.LEFT:
             self.snake.move()
             self.snake.body[0][0]-=20
-            self.snake.center_x +=  -20
+            self.snake.center_x +=-20
     
             self.check_pos()
             
@@ -40,15 +40,15 @@ class Env(arcade.Window):
             self.check_pos()
 
         elif symbol == arcade.key.UP:
-            self.snake.body[0][1]+=20
             self.snake.move();
+            self.snake.body[0][1]+=20
             self.snake.center_y +=  20
 
             self.check_pos()
 
         elif symbol == arcade.key.DOWN:
-            self.snake.body[0][1]-=20
             self.snake.move();
+            self.snake.body[0][1]-=20
             self.snake.center_y +=  -20
 
             self.check_pos()
