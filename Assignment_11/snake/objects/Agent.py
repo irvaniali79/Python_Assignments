@@ -25,16 +25,16 @@ class Agent(Snake):
 
     def set_state(self,env):
 
-        if  self.snake.center_x>X:
+        if  self.center_x>self.nearX:
             env.on_key_release(symbol=arcade.key.LEFT,modifiers=None)
 
-        elif self.snake.center_x <X:
+        elif self.center_x <self.nearX:
             env.on_key_release(symbol=arcade.key.RIGHT,modifiers=None)
 
-        elif self.snake.center_y < Y:
+        elif self.center_y < self.nearY:
             env.on_key_release(symbol=arcade.key.UP,modifiers=None)
 
-        elif self.snake.center_y>Y:
+        elif self.center_y>self.nearY:
             env.on_key_release(symbol=arcade.key.DOWN,modifiers=None)
 
 
