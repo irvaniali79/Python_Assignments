@@ -13,7 +13,7 @@ class Agent(Snake):
         self.get_env(env=game)
         self.set_state(env=game)
 
-    def get_game(self,env):
+    def get_env(self,env):
     
         if math.sqrt((env.snake.center_x-env.apple.center_x)**2+(env.snake.center_y-env.apple.center_y)**2)<\
             math.sqrt((env.snake.center_x-env.pear.center_x)**2+(env.snake.center_y-env.pear.center_y)**2):
