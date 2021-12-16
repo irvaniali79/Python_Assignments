@@ -21,6 +21,8 @@ class Snake(arcade.Sprite):
         tmp=self.body[-1]
         self.body.pop(-1)
         self.body.insert(0,tmp)
+        self.center_x  = self.body[0][0]
+        self.center_y  = self.body[0][1]
     def eat (self , obj_type):
         
             if obj_type == 'apple':      
