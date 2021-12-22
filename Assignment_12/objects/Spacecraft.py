@@ -23,7 +23,7 @@ class Spacecraft(arcade.Sprite):
 
         self.bullet_list =arcade.SpriteList()
         self.HP = "assets/heart.png"
-        self.HPs = [arcade.Sprite(self.HP, 0.01 , center_x=SCREEN_WIDTH-30 , center_y=50) , arcade.Sprite(self.HP, 0.01 , center_x=SCREEN_WIDTH-80 , center_y=50) ,arcade.Sprite(self.HP, 0.01 ,center_x=SCREEN_WIDTH-130 , center_y=50)]
+        self.HPs = [arcade.Sprite(self.HP, 0.1 , center_x=30 , center_y=50) , arcade.Sprite(self.HP, 0.1 , center_x=80 , center_y=50) ,arcade.Sprite(self.HP, 0.1 ,center_x=130 , center_y=50)]
 
         self.speed = SHIP_SPEED
     

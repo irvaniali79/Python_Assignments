@@ -33,7 +33,7 @@ class MyGame(arcade.Window):
             self.enemy_list.draw()
     
             arcade.draw_lrwh_rectangle_textured(0,0,SCREEN_WIDTH,SCREEN_HEIGHT,self.background_image)
-            arcade.draw_text(f"Score: {self.score}", 10, 20, arcade.color.WHITE, 14)
+            arcade.draw_text(f"Score: {self.score}",SCREEN_WIDTH-80 , 30, arcade.color.WHITE, width=14)
 
     def on_mouse_motion(self, x, y, dx, dy):
         self.ship.center_x = x
