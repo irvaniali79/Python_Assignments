@@ -26,7 +26,6 @@ class Env(arcade.Window):
     
     def on_update(self, delta_time: float):
         self.snake.run(game=self)
-        return super().on_update(delta_time)
 
 
 
