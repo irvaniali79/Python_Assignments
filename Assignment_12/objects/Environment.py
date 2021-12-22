@@ -25,7 +25,7 @@ class MyGame(arcade.Window):
     def on_draw(self):
         arcade.start_render()
         if(not(len(self.ship.HPs))):
-            arcade.draw_text('game over :) lol',SCREEN_HEIGHT//2,SCREEN_WIDTH//2,arcade.color.WHITE)
+            arcade.draw_text('game over :) lol',SCREEN_WIDTH//2,SCREEN_HEIGHT//2,arcade.color.WHITE,width=400, align='center')
             
         else:
             self.ship.draw();
@@ -41,7 +41,16 @@ class MyGame(arcade.Window):
 
     def on_mouse_press(self, x, y, button, modifiers):
         self.ship.fire();
+
+    def on_key_press(self, symbol: int, modifiers: int):
        
+        if symbol == arcade.key.LEFT:
+            self.ship.change_angle = 5
+            self.ship.rotate()  
+
+        elif symbol == arcade.key.RIGHT:
+            self.ship.change_angle = -5    
+            self.ship.rotate()
 
     def on_update(self, delta_time):
         self.ship.bullet_list.update()
